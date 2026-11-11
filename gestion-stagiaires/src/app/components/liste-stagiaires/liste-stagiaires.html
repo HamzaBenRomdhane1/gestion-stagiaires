@@ -1,0 +1,112 @@
+<h2>Ajouter un stagiaire</h2>
+
+<form (ngSubmit)="ajouterStagiaire()">
+  <input type="text" [(ngModel)]="nouveauStagiaire.nom" name="nom" placeholder="Nom">
+  <input type="text" [(ngModel)]="nouveauStagiaire.prenom" name="prenom" placeholder="Prénom">
+  <input type="email" [(ngModel)]="nouveauStagiaire.email" name="email" placeholder="Email (identifiant)">
+  <input type="text" [(ngModel)]="nouveauStagiaire.telephone" name="telephone" placeholder="Téléphone">
+  <input type="password" [(ngModel)]="nouveauStagiaire.password" name="password" placeholder="Mot de passe (6 car. min.)">
+  <button type="submit">Ajouter</button>
+</form>
+
+@if (erreurAjout) {
+  <div class="message-erreur">{{ erreurAjout }}</div>
+}
+@if (messageAjout) {
+  <div class="message-ok">{{ messageAjout }}</div>
+}
+
+<hr>
+
+<h1>liste Stagiaires</h1>
+
+@if (stagiaires.length === 0) {
+  <p>Aucun stagiaire trouvé.</p>
+} @else {
+  <ul>
+    @for (s of stagiaires; track s.id) {
+      <li>
+        @if (stagiaireEnEdition && stagiaireEnEdition.id === s.id) {
+          <input type="text" [(ngModel)]="stagiaireEnEdition.nom" name="editNom">
+          <input type="text" [(ngModel)]="stagiaireEnEdition.prenom" name="editPrenom">
+          <input type="email" [(ngModel)]="stagiaireEnEdition.email" name="editEmail">
+          <input type="text" [(ngModel)]="stagiaireEnEdition.telephone" name="editTelephone">
+          <button (click)="sauvegarderEdition()">Enregistrer</button>
+          <button (click)="annulerEdition()">Annuler</button>
+        } @else {
+          <div class="ligne-principale">
+            {{ s.nom }} {{ s.prenom }} - {{ s.email }} - Dossier : <strong>{{ s.statut_dossier }}</strong>
+            <button (click)="commencerEdition(s)">Modifier</button>
+            <button (click)="supprimerStagiaire(s.id)">Supprimer</button>
+            <button (click)="voirFiche(s)">Voir fiche</button>
+            @if (s.statut_dossier === 'EN_ATTENTE') {
+              <button (click)="accepterDossier(s.id)">Accepter dossier</button>
+              <button (click)="refuserDossier(s.id)">Refuser dossier</button>
+            }
+            @if (s.statut_dossier === 'ACCEPTE' && !s.sujet_id) {
+              <button (click)="tirerSujet(s.id)">🎲 Tirer un sujet</button>
+            }
+          </div>
+
+          @if (s.statut_dossier === 'ACCEPTE') {
+            <div class="affectation">
+              <label for="enc-{{ s.id }}">👨‍🏫 Encadrant</label>
+              <select id="enc-{{ s.id }}" (change)="affecterEncadrant(s.id, $any($event.target).value)">
+                <option value="" [selected]="!s.encadrant_id">-- Choisir un encadrant --</option>
+                @for (e of encadrants; track e.id) {
+                  <option [value]="e.id" [selected]="s.encadrant_id === e.id">{{ e.nom }} {{ e.prenom }}</option>
+                }
+              </select>
+            </div>
+          }
+
+          @if (s.sujet_titre) {
+            <div class="sujet-badge">📌 Sujet : {{ s.sujet_titre }}</div>
+          }
+
+          @if (stagiaireAffiche && stagiaireAffiche.id === s.id) {
+            <div class="fiche">
+              <div class="fiche-card">
+                <h4>Informations personnelles</h4>
+                <div class="fiche-row"><span class="label">Nom</span><span class="value">{{ s.nom }}</span></div>
+                <div class="fiche-row"><span class="label">Prénom</span><span class="value">{{ s.prenom }}</span></div>
+                <div class="fiche-row"><span class="label">CIN</span><span class="value">{{ s.cin || 'Non renseigné' }}</span></div>
+                <div class="fiche-row"><span class="label">Date de naissance</span><span class="value">{{ s.date_naissance | date:'dd/MM/yyyy' }}</span></div>
+                <div class="fiche-row"><span class="label">Adresse</span><span class="value">{{ s.adresse }}</span></div>
+                <div class="fiche-row"><span class="label">Email</span><span class="value">{{ s.email }}</span></div>
+                <div class="fiche-row"><span class="label">Téléphone</span><span class="value">{{ s.telephone }}</span></div>
+              </div>
+
+              <div class="fiche-card">
+                <h4>Informations académiques</h4>
+                <div class="fiche-row"><span class="label">Institut / Université</span><span class="value">{{ s.etablissement }}</span></div>
+                <div class="fiche-row"><span class="label">Filière</span><span class="value">{{ s.filiere }}</span></div>
+                <div class="fiche-row"><span class="label">Niveau d'étude</span><span class="value">{{ s.niveau_etude }}</span></div>
+                <div class="fiche-row"><span class="label">Département</span><span class="value">{{ s.departement }}</span></div>
+                <div class="fiche-row"><span class="label">Durée du stage</span><span class="value">{{ s.duree_stage }}</span></div>
+                <div class="fiche-row"><span class="label">Dates du stage</span><span class="value">{{ s.date_debut_stage | date:'dd/MM/yyyy' }} - {{ s.date_fin_stage | date:'dd/MM/yyyy' }}</span></div>
+                <div class="fiche-row"><span class="label">Sujet de stage</span><span class="value">{{ s.sujet_titre || 'Non attribué' }}</span></div>
+                <div class="fiche-row"><span class="label">Encadrant</span><span class="value">{{ s.encadrant_nom || 'Non attribué' }}</span></div>
+              </div>
+
+              <div class="documents">
+                @if (s.cv) {
+                  <div class="doc-card">
+                    📄 CV
+                    <a [href]="'http://localhost:3000' + s.cv" target="_blank">↗</a>
+                  </div>
+                }
+                @if (s.lettre_depot) {
+                  <div class="doc-card">
+                    📄 Lettre d'affectation
+                    <a [href]="'http://localhost:3000' + s.lettre_depot" target="_blank">↗</a>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        }
+      </li>
+    }
+  </ul>
+}

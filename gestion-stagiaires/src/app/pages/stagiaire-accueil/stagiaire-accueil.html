@@ -1,0 +1,51 @@
+<div class="banniere">
+  @if (profil) {
+    <h2>Bonjour {{ profil.prenom }} 👋</h2>
+    <div class="intro">Bienvenue dans votre espace stagiaire.</div>
+  } @else {
+    <h2>Mon espace</h2>
+  }
+</div>
+
+@if (chargement) {
+  <div class="rien">Chargement...</div>
+} @else if (!profil) {
+  <div class="rien">Profil introuvable. Reconnectez-vous avec votre compte stagiaire.</div>
+} @else {
+
+  <div class="stats">
+    <a class="stat" routerLink="/stagiaire/profil">
+      <span class="etiquette">Dossier</span>
+      <strong
+        class="statut"
+        [class.ok]="profil.statut_dossier === 'ACCEPTE'"
+        [class.ko]="profil.statut_dossier === 'REFUSE'"
+      >{{ statutLibelle }}</strong>
+    </a>
+
+    <a class="stat" routerLink="/stagiaire/sujet">
+      <span class="etiquette">Sujet de stage</span>
+      <strong class="texte">{{ sujet ? sujet.titre : 'Pas encore attribué' }}</strong>
+    </a>
+
+    <a class="stat" routerLink="/stagiaire/messagerie">
+      <span class="etiquette">Encadrant</span>
+      <strong class="texte">{{ encadrant ? encadrant.nom + ' ' + encadrant.prenom : 'Pas encore attribué' }}</strong>
+    </a>
+
+    <a class="stat" routerLink="/stagiaire/avancement">
+      <span class="etiquette">Avancement</span>
+      <strong>{{ avancement }} %</strong>
+    </a>
+  </div>
+
+  <div class="etape">
+    <div>
+      <h3>Prochaine étape</h3>
+      <div class="etape-texte">{{ prochaineEtape.texte }}</div>
+    </div>
+    @if (prochaineEtape.lien) {
+      <a class="btn-etape" [routerLink]="prochaineEtape.lien">{{ prochaineEtape.bouton }}</a>
+    }
+  </div>
+}

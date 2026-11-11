@@ -1,0 +1,132 @@
+.banniere {
+  border-radius: 16px;
+  padding: 34px 28px;
+  background: linear-gradient(135deg, #1e9bff 0%, #0a6cf0 100%);
+  box-shadow: 0 10px 30px rgba(10, 108, 240, 0.25);
+  text-align: center;
+}
+
+.banniere h2 {
+  margin: 0 0 8px;
+  border: 0;
+  padding: 0;
+  color: white;
+  font-size: 26px;
+}
+
+.intro {
+  color: #dbeeff;
+  font-size: 15px;
+}
+
+.rien {
+  margin-top: 20px;
+  padding: 18px;
+  background: white;
+  border-radius: 12px;
+  color: #8a94a6;
+  font-size: 14px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin: 24px 0;
+}
+
+.stat {
+  display: block;
+  padding: 20px 18px;
+  border-radius: 14px;
+  background: white;
+  text-decoration: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 6px 18px rgba(0, 0, 0, 0.04);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.stat:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 26px rgba(10, 108, 240, 0.16);
+}
+
+.etiquette {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #8a94a6;
+}
+
+.stat strong {
+  display: block;
+  font-size: 28px;
+  color: #0a6cf0;
+}
+
+.stat strong.texte {
+  font-size: 15px;
+  line-height: 1.4;
+  color: #2c3e50;
+}
+
+.stat strong.statut {
+  font-size: 20px;
+  color: #b7791f;
+}
+
+.stat strong.statut.ok {
+  color: #1e8449;
+}
+
+.stat strong.statut.ko {
+  color: #c0392b;
+}
+
+.etape {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 24px 28px;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+.etape h3 {
+  margin: 0 0 6px;
+  font-size: 17px;
+}
+
+.etape-texte {
+  color: #4b5563;
+  font-size: 14.5px;
+  line-height: 1.6;
+  max-width: 560px;
+}
+
+.btn-etape {
+  padding: 13px 24px;
+  border-radius: 24px;
+  background: #0a7cff;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 8px 22px rgba(10, 124, 255, 0.35);
+  transition: transform 0.15s;
+}
+
+.btn-etape:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 900px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

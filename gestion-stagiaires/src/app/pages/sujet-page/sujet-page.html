@@ -1,0 +1,33 @@
+<div class="page">
+  <h2>Mon sujet de stage</h2>
+
+  @if (chargement) {
+    <p>Chargement...</p>
+  } @else if (sujet) {
+    <div class="carte">
+      <span class="etiquette">Sujet attribué</span>
+      <h3>{{ sujet.titre }}</h3>
+      <p class="description">{{ sujet.description }}</p>
+
+      <h4>Cahier des charges</h4>
+      <div class="cahier">
+        @for (section of sections; track section.titre) {
+          <div class="section">
+            @if (section.titre) {
+              <h5>{{ section.titre }}</h5>
+            }
+            @for (l of section.lignes; track $index) {
+              @if (l.item) {
+                <div class="item">{{ l.texte }}</div>
+              } @else {
+                <p class="texte">{{ l.texte }}</p>
+              }
+            }
+          </div>
+        }
+      </div>
+    </div>
+  } @else {
+    <p class="info">⏳ Aucun sujet attribué pour le moment. Le RH vous en attribuera un après validation de votre dossier.</p>
+  }
+</div>

@@ -1,0 +1,83 @@
+<div class="banniere">
+  <h2>Bonjour {{ prenom || utilisateur?.username }} 👋</h2>
+  <div class="intro">
+    @if (notificationsNonLues > 0 || messagesNonLus > 0) {
+      Vous avez {{ notificationsNonLues }} notification(s) et {{ messagesNonLus }} message(s) non lu(s).
+    } @else {
+      Tout est à jour. Bienvenue dans votre espace encadrant.
+    }
+  </div>
+</div>
+
+<div class="stats">
+  <a class="stat" routerLink="/encadrant/stagiaires">
+    <strong>{{ stagiaires.length }}</strong>
+    <span>stagiaire(s) suivi(s)</span>
+  </a>
+  <a class="stat" routerLink="/encadrant/avancement">
+    <strong>{{ moyenne }} %</strong>
+    <span>avancement moyen</span>
+  </a>
+  <a class="stat" routerLink="/encadrant/avancement">
+    <strong>{{ totalDepots }}</strong>
+    <span>dépôt(s) reçu(s)</span>
+  </a>
+  <a class="stat" routerLink="/encadrant/messagerie">
+    <strong>{{ messagesNonLus }}</strong>
+    <span>message(s) non lu(s)</span>
+  </a>
+</div>
+
+<div class="colonnes">
+
+  <section>
+    <h3 class="titre">Mes stagiaires <span class="nb">{{ stagiaires.length }}</span></h3>
+
+    @if (chargement) {
+      <div class="rien">Chargement...</div>
+    } @else if (stagiaires.length === 0) {
+      <div class="rien">
+        Aucun stagiaire ne vous est affecté pour le moment.
+        Vous serez notifié dès que le RH vous en attribuera un.
+      </div>
+    } @else {
+      <div class="liste">
+        @for (s of stagiaires.slice(0, 5); track s.id) {
+          <a class="ligne" routerLink="/encadrant/stagiaires">
+            <div class="initiales">{{ s.nom.charAt(0).toUpperCase() }}{{ s.prenom.charAt(0).toUpperCase() }}</div>
+            <div class="infos">
+              <div class="nom">{{ s.nom }} {{ s.prenom }}</div>
+              <div class="sous">{{ s.sujet_titre || 'Sujet non attribué' }}</div>
+              <div class="barre"><div class="rempli" [style.width.%]="s.avancement_actuel || 0"></div></div>
+            </div>
+            <span class="pourcent">{{ s.avancement_actuel || 0 }} %</span>
+          </a>
+        }
+      </div>
+    }
+  </section>
+
+  <section>
+    <h3 class="titre">
+      Dernières notifications
+      @if (notificationsNonLues > 0) {
+        <span class="nb rouge">{{ notificationsNonLues }}</span>
+      }
+    </h3>
+
+    @if (dernieresNotifications.length === 0) {
+      <div class="rien">Aucune notification pour le moment.</div>
+    } @else {
+      <div class="liste">
+        @for (n of dernieresNotifications; track n.id) {
+          <a class="notif" [class.non-lue]="!n.lu" routerLink="/encadrant/notifications">
+            <div class="notif-message">{{ n.message }}</div>
+            <div class="notif-date">{{ n.date_creation | date:'dd/MM/yyyy HH:mm' }}</div>
+          </a>
+        }
+      </div>
+      <a class="voir-tout" routerLink="/encadrant/notifications">Voir toutes les notifications ›</a>
+    }
+  </section>
+
+</div>

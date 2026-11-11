@@ -1,0 +1,52 @@
+<div class="rh-layout">
+
+  <aside class="menu-lateral">
+      <div class="marque">
+        <div class="logo">
+        <img src="biat.png" alt="Logo BIAT IT" class="logo-img"></div>
+    </div>
+
+    <div class="text-logo">
+    <h1>BIAT <span class="it">IT</span></h1>
+    </div>
+
+
+    <nav class="liens">
+      <a routerLink="/rh" routerLinkActive="actif" [routerLinkActiveOptions]="{ exact: true }">
+        <span class="ico">🏠</span> Tableau de bord
+      </a>
+      <a routerLink="/rh/candidatures" routerLinkActive="actif">
+        <span class="ico">📝</span> Candidatures
+        @if (enAttente > 0) {
+          <span class="compteur">{{ enAttente }}</span>
+        }
+      </a>
+      <a routerLink="/rh/stagiaires" routerLinkActive="actif">
+        <span class="ico">🎓</span> Stagiaires
+      </a>
+      <a routerLink="/rh/encadrants" routerLinkActive="actif">
+        <span class="ico">👨‍🏫</span> Encadrants
+      </a>
+    </nav>
+
+    <div class="bas">
+      @if (utilisateur) {
+        <div class="profil">
+          <div class="avatar">{{ utilisateur.username.charAt(0).toUpperCase() }}</div>
+          <div>
+            <strong>{{ utilisateur.username }}</strong>
+            <span>Ressources humaines</span>
+          </div>
+        </div>
+      }
+      <button (click)="seDeconnecter()">Se déconnecter</button>
+    </div>
+  </aside>
+
+  <main class="principal">
+    <div class="zone">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+
+</div>

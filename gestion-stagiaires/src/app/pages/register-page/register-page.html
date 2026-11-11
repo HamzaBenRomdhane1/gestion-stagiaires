@@ -1,0 +1,89 @@
+
+<div class="page-inscription">
+
+  <div class="inscription-card">
+
+    
+<div class="form-header">
+  <img src="biatt.png" alt="BIAT IT" class="logo-biat">
+  <h2>Créer un compte</h2>
+</div>
+
+
+    <form (ngSubmit)="creerCompte()">
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nom">Nom</label>
+          <input
+            id="nom"
+            type="text"
+            [(ngModel)]="nouveauCompte.nom"
+            name="nom"
+            placeholder="Votre nom"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label for="prenom">Prénom</label>
+          <input
+            id="prenom"
+            type="text"
+            [(ngModel)]="nouveauCompte.prenom"
+            name="prenom"
+            placeholder="Votre prénom"
+            required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Adresse e-mail</label>
+        <input
+          id="email"
+          type="email"
+          [(ngModel)]="nouveauCompte.email"
+          name="email"
+          placeholder="exemple@email.com"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="telephone">Téléphone</label>
+        <input
+          id="telephone"
+          type="tel"
+          [(ngModel)]="nouveauCompte.telephone"
+          name="telephone"
+          placeholder="+216 XX XXX XXX">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input
+          id="password"
+          type="password"
+          [(ngModel)]="nouveauCompte.password"
+          name="password"
+          placeholder="Votre mot de passe"
+          required>
+      </div>
+
+      
+<button type="submit">
+  Créer mon compte
+</button>
+
+
+      @if (message) {
+        <p class="message">{{ message }}</p>
+      }
+
+    </form>
+
+    <div class="card-footer">
+      Plateforme de gestion des stages
+    </div>
+
+  </div>
+
+</div>

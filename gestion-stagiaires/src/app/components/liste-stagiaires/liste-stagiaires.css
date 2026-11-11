@@ -1,0 +1,110 @@
+li {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.ligne-principale {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.fiche {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.fiche-card {
+  background: #f8f9fb;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.fiche-card h4 {
+  margin: 0 0 14px;
+  color: #1a3c6e;
+  font-size: 15px;
+}
+
+.fiche-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #e8ebf0;
+  font-size: 13.5px;
+}
+
+.fiche-row:last-child {
+  border-bottom: none;
+}
+
+.fiche-row .label {
+  color: #8a94a6;
+}
+
+.fiche-row .value {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.documents {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.doc-card {
+  background: white;
+  border: 1px solid #e8ebf0;
+  border-radius: 10px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.doc-card a {
+  color: #1a3c6e;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.sujet-badge {
+  margin-top: 10px;
+  background: #e8f0fb;
+  color: #1a3c6e;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+
+.affectation {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.affectation label {
+  width: auto;
+  margin: 0;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 13.5px;
+  color: #1a3c6e;
+}
+
+.affectation select {
+  min-width: 220px;
+}

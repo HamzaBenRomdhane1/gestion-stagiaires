@@ -1,0 +1,58 @@
+<div class="enc-layout">
+
+  <aside class="menu-lateral">
+    <div class="marque">
+      <div class="logo">
+        <img src="biat.png" alt="Logo BIAT IT" class="logo-img"></div>
+    </div>
+
+    <div class="text-logo">
+    <h1>BIAT <span class="it">IT</span></h1>
+    </div>
+
+
+    <nav class="liens">
+      <a routerLink="/encadrant" routerLinkActive="actif" [routerLinkActiveOptions]="{ exact: true }">
+        <span class="ico">🏠</span> Tableau de bord
+      </a>
+      <a routerLink="/encadrant/stagiaires" routerLinkActive="actif">
+        <span class="ico">🎓</span> Mes stagiaires
+      </a>
+      <a routerLink="/encadrant/avancement" routerLinkActive="actif">
+        <span class="ico">📈</span> Avancement
+      </a>
+      <a routerLink="/encadrant/messagerie" routerLinkActive="actif">
+        <span class="ico">💬</span> Messagerie
+        @if (messagesNonLus > 0) {
+          <span class="compteur">{{ messagesNonLus }}</span>
+        }
+      </a>
+      <a routerLink="/encadrant/notifications" routerLinkActive="actif">
+        <span class="ico">🔔</span> Notifications
+        @if (notificationsNonLues > 0) {
+          <span class="compteur">{{ notificationsNonLues }}</span>
+        }
+      </a>
+    </nav>
+
+    <div class="bas">
+      @if (utilisateur) {
+        <div class="profil">
+          <div class="avatar">{{ utilisateur.username.charAt(0).toUpperCase() }}</div>
+          <div>
+            <strong>{{ utilisateur.username }}</strong>
+            <span>Encadrant</span>
+          </div>
+        </div>
+      }
+      <button (click)="seDeconnecter()">Se déconnecter</button>
+    </div>
+  </aside>
+
+  <main class="principal">
+    <div class="zone">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+
+</div>

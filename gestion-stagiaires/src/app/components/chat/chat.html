@@ -1,0 +1,31 @@
+<div class="chat">
+  <div class="chat-entete">
+    <div class="avatar">{{ contactNom.charAt(0).toUpperCase() }}</div>
+    <div>
+      <strong>{{ contactNom }}</strong>
+      <span>Messagerie interne</span>
+    </div>
+  </div>
+
+  <div class="fil" #fil>
+    @if (messages.length === 0) {
+      <div class="vide">Aucun message pour le moment. Écrivez le premier !</div>
+    }
+    @for (m of messages; track m.id) {
+      <div class="bulle" [class.moi]="m.expediteur_id === moiId">
+        <div class="texte">{{ m.contenu }}</div>
+        <div class="heure">{{ m.date_envoi | date:'dd/MM HH:mm' }}</div>
+      </div>
+    }
+  </div>
+
+  <div class="saisie">
+    <input
+      type="text"
+      [(ngModel)]="texte"
+      (keydown.enter)="envoyer()"
+      placeholder="Écrivez votre message..."
+    />
+    <button type="button" (click)="envoyer()">Envoyer</button>
+  </div>
+</div>

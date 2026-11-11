@@ -1,0 +1,73 @@
+
+<div class="page">
+  <h2>Avancement de mes stagiaires</h2>
+
+  @if (chargement) {
+    <div class="info">Chargement...</div>
+  } @else if (erreur) {
+    <div class="info danger">
+      {{ erreur }}<br>
+      Si le message parle de la table « avancements », créez-la dans phpMyAdmin.
+    </div>
+  } @else if (stagiaires.length === 0) {
+    <div class="info">Aucun stagiaire ne vous est affecté pour le moment.</div>
+  } @else {
+
+    <div class="stats">
+      <div class="stat">
+        <strong>{{ stagiaires.length }}</strong>
+        <span>stagiaire(s) suivi(s)</span>
+      </div>
+      <div class="stat">
+        <strong>{{ moyenne }} %</strong>
+        <span>avancement moyen</span>
+      </div>
+      <div class="stat">
+        <strong>{{ totalDepots }}</strong>
+        <span>dépôt(s) reçu(s)</span>
+      </div>
+    </div>
+
+    @for (s of stagiaires; track s.id) {
+      <div class="carte">
+        <div class="entete">
+          <div class="initiales">{{ s.nom.charAt(0).toUpperCase() }}{{ s.prenom.charAt(0).toUpperCase() }}</div>
+          <div class="identite">
+            <div class="nom">{{ s.nom }} {{ s.prenom }}</div>
+            <div class="sujet">{{ s.sujet_titre || 'Sujet non attribué' }}</div>
+          </div>
+          <div class="pourcent">{{ s.avancement_actuel || 0 }} %</div>
+        </div>
+
+        <div class="barre"><div class="rempli" [style.width.%]="s.avancement_actuel || 0"></div></div>
+
+        <div class="titre-depots">Dépôts ({{ s.nb_depots || 0 }})</div>
+
+        @if (!depots[s.id]) {
+          <div class="rien">Chargement des dépôts...</div>
+        } @else if (depots[s.id].length === 0) {
+          <div class="rien">Ce stagiaire n'a encore rien déposé.</div>
+        } @else {
+          @for (d of depots[s.id]; track d.id) {
+            <div class="depot">
+              <div class="depot-tete">
+                <strong>{{ d.titre }}</strong>
+                <span>{{ d.date_depot | date:'dd/MM/yyyy HH:mm' }}</span>
+              </div>
+              @if (d.description) {
+                <div class="depot-desc">{{ d.description }}</div>
+              }
+              <div class="barre petite"><div class="rempli" [style.width.%]="d.pourcentage"></div></div>
+              <div class="depot-pied">
+                <span>{{ d.pourcentage }} %</span>
+                @if (d.fichier) {
+                  <a [href]="'http://localhost:3000' + d.fichier" target="_blank">📎 Fichier joint ↗</a>
+                }
+              </div>
+            </div>
+          }
+        }
+      </div>
+    }
+  }
+</div>

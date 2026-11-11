@@ -1,0 +1,187 @@
+.compteur {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 11px;
+  border-radius: 12px;
+  background: #e8f0fb;
+  color: #1a3c6e;
+  font-size: 14px;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+.vide {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  color: #6b7280;
+  line-height: 1.6;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.liste {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.carte {
+  background: white;
+  border-radius: 14px;
+  padding: 18px 22px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 6px 18px rgba(0,0,0,0.04);
+}
+
+.ligne {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.initiales {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1a3c6e, #1e7bff);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.identite {
+  flex: 1;
+  min-width: 200px;
+}
+
+.nom {
+  font-weight: 700;
+  color: #2c3e50;
+  font-size: 15.5px;
+}
+
+.contact {
+  color: #8a94a6;
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+.sujet {
+  background: #e8f0fb;
+  color: #1a3c6e;
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.fiche {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.bloc {
+  background: #f8f9fb;
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.bloc h4 {
+  margin: 0 0 12px;
+  color: #1a3c6e;
+  font-size: 14.5px;
+}
+
+.rang {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid #e8ebf0;
+  font-size: 13.5px;
+}
+
+.rang:last-child {
+  border-bottom: none;
+}
+
+.etiquette {
+  color: #8a94a6;
+}
+
+.valeur {
+  font-weight: 600;
+  color: #2c3e50;
+  text-align: right;
+}
+
+.documents {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.doc {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+  border: 1px solid #e3e8f0;
+  border-radius: 10px;
+  background: white;
+  color: #1a3c6e;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.doc:hover {
+  border-color: #1e7bff;
+  box-shadow: 0 4px 12px rgba(30, 123, 255, 0.15);
+}
+
+@media (max-width: 800px) {
+  .fiche {
+    grid-template-columns: 1fr;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-message {
+  position: relative;
+}
+
+.pastille-msg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  margin-left: 6px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: #e53935;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.zone-chat {
+  margin-top: 16px;
+}
+
+
+
+
+

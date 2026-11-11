@@ -1,0 +1,14 @@
+<h2>Déposer ma candidature</h2>
+
+@if (envoye) {
+  <p>Votre candidature a bien été envoyée ! Nous vous contacterons prochainement.</p>
+} @else {
+  <form (ngSubmit)="envoyerCandidature()">
+    <input type="text" [(ngModel)]="nouvelleCandidature.nom" name="nom" placeholder="Nom" required>
+    <input type="text" [(ngModel)]="nouvelleCandidature.prenom" name="prenom" placeholder="Prénom" required>
+    <input type="email" [(ngModel)]="nouvelleCandidature.email" name="email" placeholder="Email" required>
+    <input type="text" [(ngModel)]="nouvelleCandidature.telephone" name="telephone" placeholder="Téléphone">
+    <input type="text" [(ngModel)]="nouvelleCandidature.sujet" name="sujet" placeholder="Sujet de stage">
+    <button type="submit">Envoyer ma candidature</button>
+  </form>
+}

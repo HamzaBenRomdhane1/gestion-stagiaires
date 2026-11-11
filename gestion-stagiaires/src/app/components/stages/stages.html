@@ -1,0 +1,46 @@
+<h2>Ajouter un stage</h2>
+
+<form (ngSubmit)="ajouterStage()">
+  <input type="number" [(ngModel)]="nouveauStage.stagiaire_id" name="stagiaire_id" placeholder="ID Stagiaire" required>
+  <input type="number" [(ngModel)]="nouveauStage.encadrant_id" name="encadrant_id" placeholder="ID Encadrant">
+  <input type="text" [(ngModel)]="nouveauStage.titre" name="titre" placeholder="Titre du stage" required>
+  <input type="date" [(ngModel)]="nouveauStage.date_debut" name="date_debut" required>
+  <input type="date" [(ngModel)]="nouveauStage.date_fin" name="date_fin" required>
+  <select [(ngModel)]="nouveauStage.statut" name="statut">
+    <option value="EN_ATTENTE">En attente</option>
+    <option value="EN_COURS">En cours</option>
+    <option value="TERMINE">Terminé</option>
+  </select>
+  <button type="submit">Ajouter</button>
+</form>
+
+<hr>
+
+<h2>Liste des stages</h2>
+
+@if (stages.length === 0) {
+  <p>Aucun stage trouvé.</p>
+} @else {
+  <ul>
+    @for (s of stages; track s.id) {
+      <li>
+        @if (stageEnEdition && stageEnEdition.id === s.id) {
+          <input type="text" [(ngModel)]="stageEnEdition.titre" name="editTitre">
+          <input type="date" [(ngModel)]="stageEnEdition.date_debut" name="editDateDebut">
+          <input type="date" [(ngModel)]="stageEnEdition.date_fin" name="editDateFin">
+          <select [(ngModel)]="stageEnEdition.statut" name="editStatut">
+            <option value="EN_ATTENTE">En attente</option>
+            <option value="EN_COURS">En cours</option>
+            <option value="TERMINE">Terminé</option>
+          </select>
+          <button (click)="sauvegarderEdition()">Enregistrer</button>
+          <button (click)="annulerEdition()">Annuler</button>
+        } @else {
+          {{ s.titre }} ({{ s.date_debut }} → {{ s.date_fin }}) - {{ s.statut }}
+          <button (click)="commencerEdition(s)">Modifier</button>
+          <button (click)="supprimerStage(s.id)">Supprimer</button>
+        }
+      </li>
+    }
+  </ul>
+}

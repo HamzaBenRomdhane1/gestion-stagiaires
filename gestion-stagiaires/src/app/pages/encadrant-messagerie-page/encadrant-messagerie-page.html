@@ -1,0 +1,45 @@
+
+<div class="page">
+  <h2>Messagerie</h2>
+
+  @if (chargement) {
+    <div class="info">Chargement...</div>
+  } @else if (stagiaires.length === 0) {
+    <div class="info">
+      ⏳ Aucun stagiaire ne vous est affecté pour le moment.
+      Vous pourrez leur écrire dès que le RH vous en aura attribué.
+    </div>
+  } @else {
+    <div class="messenger">
+
+      <aside class="contacts">
+        <div class="contacts-titre">Mes stagiaires</div>
+        @for (s of stagiaires; track s.id) {
+          <div class="contact" [class.actif]="selection?.id === s.id" (click)="choisir(s)">
+            <div class="initiales">{{ s.nom.charAt(0).toUpperCase() }}{{ s.prenom.charAt(0).toUpperCase() }}</div>
+            <div class="infos">
+              <div class="nom">{{ s.nom }} {{ s.prenom }}</div>
+              <div class="sujet">{{ s.sujet_titre || 'Sujet non attribué' }}</div>
+            </div>
+            @if (nonLus[s.user_id] > 0) {
+              <span class="pastille">{{ nonLus[s.user_id] }}</span>
+            }
+          </div>
+        }
+      </aside>
+
+      <section class="conversation">
+        @if (selection) {
+          <app-chat
+            [moiId]="utilisateur.id"
+            [contactId]="selection.user_id"
+            [contactNom]="selection.nom + ' ' + selection.prenom"
+          ></app-chat>
+        } @else {
+          <div class="choix">Sélectionnez un stagiaire pour ouvrir la conversation.</div>
+        }
+      </section>
+
+    </div>
+  }
+</div>

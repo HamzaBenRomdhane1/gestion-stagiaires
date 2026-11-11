@@ -1,0 +1,18 @@
+<div class="page">
+  <h2>Messagerie</h2>
+
+  @if (chargement) {
+    <p>Chargement...</p>
+  } @else if (encadrant) {
+    <app-chat
+      [moiId]="utilisateur.id"
+      [contactId]="encadrant.user_id"
+      [contactNom]="encadrant.nom + ' ' + encadrant.prenom"
+    ></app-chat>
+  } @else {
+    <p class="info">
+      ⏳ Aucun encadrant ne vous est affecté pour le moment.
+      Vous pourrez lui écrire dès que le RH vous en aura attribué un.
+    </p>
+  }
+</div>

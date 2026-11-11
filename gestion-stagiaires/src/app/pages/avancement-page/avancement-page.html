@@ -1,0 +1,87 @@
+<div class="page">
+  <h2>Mon avancement</h2>
+
+  @if (chargement) {
+    <div class="info">Chargement...</div>
+  } @else if (!profil) {
+    <div class="info">Profil introuvable. Reconnectez-vous avec votre compte stagiaire.</div>
+  } @else if (profil.statut_dossier !== 'ACCEPTE') {
+    <div class="info">
+      ⏳ Le dépôt d'avancement sera disponible dès que le RH aura accepté votre dossier.
+    </div>
+  } @else {
+
+    <div class="resume">
+      <div class="resume-tete">
+        <span>Avancement actuel</span>
+        <strong>{{ avancementActuel }} %</strong>
+      </div>
+      <div class="barre"><div class="rempli" [style.width.%]="avancementActuel"></div></div>
+      <div class="resume-pied">{{ depots.length }} dépôt(s) enregistré(s)</div>
+    </div>
+
+    <form class="formulaire" (ngSubmit)="deposer()">
+      <h3>Nouveau dépôt</h3>
+
+      <div class="champ plein">
+        <label>Titre</label>
+        <input type="text" [(ngModel)]="nouveau.titre" name="titre" placeholder="Ex : Maquettes terminées">
+      </div>
+
+      <div class="champ plein">
+        <label>Description</label>
+        <textarea [(ngModel)]="nouveau.description" name="description" placeholder="Ce que vous avez fait depuis le dernier dépôt..."></textarea>
+      </div>
+
+      <div class="champ">
+        <label>Avancement : {{ nouveau.pourcentage }} %</label>
+        <input type="range" class="curseur" min="0" max="100" step="5" [(ngModel)]="nouveau.pourcentage" name="pourcentage">
+      </div>
+
+      <div class="champ">
+        <label>Fichier (facultatif)</label>
+        <input type="file" #fichierInput accept=".pdf,.doc,.docx,.zip,.png,.jpg,.jpeg" (change)="onFichier($event)">
+      </div>
+
+      <div class="champ plein">
+        <button type="submit" [disabled]="envoiEnCours">
+          {{ envoiEnCours ? 'Envoi en cours...' : 'Envoyer à mon encadrant' }}
+        </button>
+      </div>
+
+      @if (erreur) {
+        <div class="champ plein"><div class="alerte erreur">{{ erreur }}</div></div>
+      }
+      @if (message) {
+        <div class="champ plein"><div class="alerte succes">{{ message }}</div></div>
+      }
+    </form>
+
+    <h3 class="titre-historique">Historique</h3>
+
+    @if (depots.length === 0) {
+      <div class="info neutre">Aucun dépôt pour le moment. Envoyez votre premier point d'étape ci-dessus.</div>
+    } @else {
+      <div class="historique">
+        @for (d of depots; track d.id) {
+          <div class="depot">
+            <div class="depot-tete">
+              <strong>{{ d.titre }}</strong>
+              <span>{{ d.date_depot | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+            @if (d.description) {
+              <div class="depot-desc">{{ d.description }}</div>
+            }
+            <div class="barre petite"><div class="rempli" [style.width.%]="d.pourcentage"></div></div>
+            <div class="depot-pied">
+              <span>{{ d.pourcentage }} %</span>
+              @if (d.fichier) {
+                <a [href]="'http://localhost:3000' + d.fichier" target="_blank">📎 Fichier joint ↗</a>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
+  }
+</div>

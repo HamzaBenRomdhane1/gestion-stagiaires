@@ -1,0 +1,27 @@
+<div class="entete">
+  <h2>Notifications</h2>
+  @if (nonLues > 0) {
+    <button class="tout-lire" (click)="toutLire()">Tout marquer comme lu ({{ nonLues }})</button>
+  }
+</div>
+
+@if (chargement) {
+  <div class="rien">Chargement...</div>
+} @else if (notifications.length === 0) {
+  <div class="rien">Aucune notification pour le moment.</div>
+} @else {
+  <div class="liste">
+    @for (n of notifications; track n.id) {
+      <div class="notif" [class.non-lue]="!n.lu" (click)="lire(n)">
+        <div class="icone">{{ n.message.startsWith('Nouveau dépôt') ? '📈' : '🎓' }}</div>
+        <div class="contenu">
+          <div class="message">{{ n.message }}</div>
+          <div class="date">{{ n.date_creation | date:'dd/MM/yyyy HH:mm' }}</div>
+        </div>
+        @if (!n.lu) {
+          <span class="point"></span>
+        }
+      </div>
+    }
+  </div>
+}

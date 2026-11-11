@@ -1,0 +1,82 @@
+<h2>Mes stagiaires <span class="compteur">{{ stagiaires.length }}</span></h2>
+
+@if (chargement) {
+  <div class="vide">Chargement...</div>
+} @else if (stagiaires.length === 0) {
+  <div class="vide">
+    Aucun stagiaire ne vous est affecté pour le moment.
+    Vous serez notifié dès qu'un stagiaire vous sera attribué.
+  </div>
+} @else {
+  <div class="liste">
+    @for (s of stagiaires; track s.id) {
+      <div class="carte">
+        <div class="ligne">
+          <div class="initiales">{{ s.nom.charAt(0).toUpperCase() }}{{ s.prenom.charAt(0).toUpperCase() }}</div>
+
+          <div class="identite">
+            <div class="nom">{{ s.nom }} {{ s.prenom }}</div>
+            <div class="contact">{{ s.email }} · {{ s.telephone }}</div>
+          </div>
+
+          @if (s.sujet_titre) {
+            <div class="sujet">📌 {{ s.sujet_titre }}</div>
+          }
+
+          <div class="actions">
+            <button (click)="ouvrirChat(s)" class="btn-message">
+              💬 {{ stagiaireChat?.id === s.id ? 'Fermer' : 'Message' }}
+              @if (nonLus[s.user_id] > 0) {
+                <span class="pastille-msg">{{ nonLus[s.user_id] }}</span>
+              }
+            </button>
+            <button (click)="voirFiche(s)">
+              {{ stagiaireAffiche?.id === s.id ? 'Masquer' : 'Voir fiche' }}
+            </button>
+          </div>
+        </div>
+
+        @if (stagiaireChat?.id === s.id) {
+          <div class="zone-chat">
+            <app-chat
+              [moiId]="utilisateur.id"
+              [contactId]="s.user_id"
+              [contactNom]="s.nom + ' ' + s.prenom"
+            ></app-chat>
+          </div>
+        }
+
+        @if (stagiaireAffiche?.id === s.id) {
+          <div class="fiche">
+            <div class="bloc">
+              <h4>Informations personnelles</h4>
+              <div class="rang"><span class="etiquette">CIN</span><span class="valeur">{{ s.cin || 'Non renseigné' }}</span></div>
+              <div class="rang"><span class="etiquette">Date de naissance</span><span class="valeur">{{ s.date_naissance | date:'dd/MM/yyyy' }}</span></div>
+              <div class="rang"><span class="etiquette">Adresse</span><span class="valeur">{{ s.adresse }}</span></div>
+              <div class="rang"><span class="etiquette">Téléphone</span><span class="valeur">{{ s.telephone }}</span></div>
+            </div>
+
+            <div class="bloc">
+              <h4>Parcours et stage</h4>
+              <div class="rang"><span class="etiquette">Établissement</span><span class="valeur">{{ s.etablissement }}</span></div>
+              <div class="rang"><span class="etiquette">Filière</span><span class="valeur">{{ s.filiere }}</span></div>
+              <div class="rang"><span class="etiquette">Niveau d'étude</span><span class="valeur">{{ s.niveau_etude }}</span></div>
+              <div class="rang"><span class="etiquette">Département</span><span class="valeur">{{ s.departement }}</span></div>
+              <div class="rang"><span class="etiquette">Durée</span><span class="valeur">{{ s.duree_stage }}</span></div>
+              <div class="rang"><span class="etiquette">Dates</span><span class="valeur">{{ s.date_debut_stage | date:'dd/MM/yyyy' }} - {{ s.date_fin_stage | date:'dd/MM/yyyy' }}</span></div>
+            </div>
+
+            <div class="documents">
+              @if (s.cv) {
+                <a class="doc" [href]="'http://localhost:3000' + s.cv" target="_blank">📄 CV <span>↗</span></a>
+              }
+              @if (s.lettre_depot) {
+                <a class="doc" [href]="'http://localhost:3000' + s.lettre_depot" target="_blank">📄 Lettre d'affectation <span>↗</span></a>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+}

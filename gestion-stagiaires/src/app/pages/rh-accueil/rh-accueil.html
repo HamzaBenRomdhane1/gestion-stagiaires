@@ -1,0 +1,75 @@
+<div class="banniere">
+  <h2>Rechercher un collaborateur</h2>
+  <div class="recherche">
+    <input
+      type="text"
+      [ngModel]="recherche"
+      (ngModelChange)="chercher($event)"
+      name="recherche"
+      placeholder="ex : Ahmed Ben Ali"
+      autocomplete="off"
+    />
+    <span class="loupe">🔍</span>
+  </div>
+</div>
+
+@if (recherche.trim().length >= 2) {
+  <div class="resultats">
+    @if (resultats.length === 0) {
+      <div class="rien">Aucun résultat pour « {{ recherche }} ».</div>
+    }
+    @for (r of resultats; track r.type + r.id) {
+      <a class="resultat" [routerLink]="r.lien">
+        <div class="initiales">{{ r.nom.charAt(0).toUpperCase() }}{{ r.prenom.charAt(0).toUpperCase() }}</div>
+        <div class="infos">
+          <div class="nom">{{ r.nom }} {{ r.prenom }}</div>
+          <div class="sous">{{ r.email }}</div>
+        </div>
+        <span class="type" [class.encadrant]="r.type === 'Encadrant'">{{ r.type }}</span>
+      </a>
+    }
+  </div>
+}
+
+<div class="stats">
+  <a class="stat" routerLink="/rh/candidatures">
+    <strong>{{ candidaturesEnAttente }}</strong>
+    <span>candidature(s) en attente</span>
+  </a>
+  <a class="stat" routerLink="/rh/stagiaires">
+    <strong>{{ dossiersAValider.length }}</strong>
+    <span>dossier(s) à valider</span>
+  </a>
+  <a class="stat" routerLink="/rh/stagiaires">
+    <strong>{{ stagiaires.length }}</strong>
+    <span>stagiaire(s)</span>
+  </a>
+  <a class="stat" routerLink="/rh/encadrants">
+    <strong>{{ encadrants.length }}</strong>
+    <span>encadrant(s)</span>
+  </a>
+</div>
+
+<h3 class="titre">Dossiers à valider <span class="nb">{{ dossiersAValider.length }}</span></h3>
+
+@if (dossiersAValider.length === 0) {
+  <div class="rien">Aucun dossier en attente pour l'instant.</div>
+} @else {
+  <div class="liste">
+    @for (s of dossiersAValider.slice(0, 5); track s.id) {
+      <a class="ligne" routerLink="/rh/stagiaires">
+        <div class="initiales">{{ s.nom.charAt(0).toUpperCase() }}{{ s.prenom.charAt(0).toUpperCase() }}</div>
+        <div class="infos">
+          <div class="nom">{{ s.nom }} {{ s.prenom }}</div>
+          <div class="sous">{{ s.email }}</div>
+        </div>
+        <span class="ouvrir">Ouvrir ›</span>
+      </a>
+    }
+  </div>
+}
+
+<div class="actions-rapides">
+  <a routerLink="/rh/encadrants" class="btn-creer clair">➕ Créer un encadrant</a>
+  <a routerLink="/rh/stagiaires" class="btn-creer">➕ Créer un stagiaire</a>
+</div>

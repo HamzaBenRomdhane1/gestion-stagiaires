@@ -1,0 +1,74 @@
+<div class="header">
+  <div class="logo">
+    <img src="/biat.png" alt="Biat IT" class="logo-img">
+    <strong>Biat IT</strong>
+  </div>
+
+  @if (role === 'Stagiaire') {
+    <nav class="menu">
+      <a routerLink="/stagiaire" routerLinkActive="actif" [routerLinkActiveOptions]="{ exact: true }">Mon profil</a>
+      <a routerLink="/stagiaire/sujet" routerLinkActive="actif">Mon sujet</a>
+      <a routerLink="/stagiaire/messagerie" routerLinkActive="actif">Messagerie</a>
+      <a routerLink="/stagiaire/avancement" routerLinkActive="actif">Mon avancement</a>
+    </nav>
+  }
+
+  @if (role === 'Encadrant') {
+    <nav class="menu">
+      <a routerLink="/encadrant" routerLinkActive="actif" [routerLinkActiveOptions]="{ exact: true }">Mes stagiaires</a>
+      <a routerLink="/encadrant/avancement" routerLinkActive="actif">Avancement</a>
+      <a routerLink="/encadrant/messagerie" routerLinkActive="actif">
+        Messagerie
+        @if (messagesNonLus > 0) {
+          <span class="badge-menu">{{ messagesNonLus }}</span>
+        }
+      </a>
+    </nav>
+  }
+
+  <div class="user-info">
+
+    @if (afficheNotifications) {
+      <div class="cloche-zone">
+        <div class="cloche" (click)="basculerPanneau()">
+          🔔
+          @if (nonLues > 0) {
+            <span class="pastille">{{ nonLues }}</span>
+          }
+        </div>
+
+        @if (panneauOuvert) {
+          <div class="fond-panneau" (click)="basculerPanneau()"></div>
+          <div class="panneau">
+            <div class="panneau-entete">
+              <strong>Notifications</strong>
+              @if (nonLues > 0) {
+                <span class="tout-lire" (click)="toutLire()">Tout marquer comme lu</span>
+              }
+            </div>
+
+            @if (notifications.length === 0) {
+              <div class="vide">Aucune notification pour le moment.</div>
+            } @else {
+              @for (n of notifications; track n.id) {
+                <div class="notif" [class.non-lue]="!n.lu" (click)="lire(n)">
+                  <div class="notif-message">{{ n.message }}</div>
+                  <div class="notif-date">{{ n.date_creation | date:'dd/MM/yyyy HH:mm' }}</div>
+                </div>
+              }
+            }
+          </div>
+        }
+      </div>
+    }
+
+    @if (utilisateur) {
+      <div class="user-text">
+        <strong>{{ utilisateur.username }}</strong>
+        <span>{{ role }}</span>
+      </div>
+      <div class="avatar-circle">{{ utilisateur.username.charAt(0).toUpperCase() }}</div>
+    }
+    <button (click)="seDeconnecter()">Se déconnecter</button>
+  </div>
+</div>

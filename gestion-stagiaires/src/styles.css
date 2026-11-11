@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  background-color: #f1f4f9;
+  color: #2c3e50;
+  margin: 0;
+  padding: 24px;
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  color: #1a3c6e;
+  font-weight: 700;
+}
+
+h2 {
+  border-bottom: 2px solid #e3e8f0;
+  padding-bottom: 10px;
+  margin-top: 30px;
+  font-size: 20px;
+}
+
+/* Formulaires */
+form {
+  background: white;
+  padding: 22px;
+  border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 20px rgba(0,0,0,0.04);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+input, select, textarea {
+  padding: 10px 12px;
+  border: 1px solid #dde3ec;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #1a3c6e;
+  box-shadow: 0 0 0 3px rgba(26,60,110,0.12);
+}
+
+textarea {
+  width: 100%;
+  min-height: 70px;
+  resize: vertical;
+}
+
+input:disabled, select:disabled, textarea:disabled {
+  background-color: #f3f4f6;
+  color: #9aa1ab;
+  border-color: #e9ebee;
+}
+
+label {
+  font-weight: 600;
+  font-size: 12.5px;
+  color: #6b7280;
+  width: 100%;
+  margin-bottom: -6px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* Boutons */
+button {
+  padding: 9px 16px;
+  background-color: #1a3c6e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 600;
+  transition: background-color 0.15s, transform 0.1s;
+}
+
+button:hover {
+  background-color: #14315a;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+button:disabled {
+  background-color: #c3c9d1;
+  cursor: not-allowed;
+}
+
+/* Listes / cartes */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background: white;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.03);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  transition: box-shadow 0.15s;
+}
+
+li:hover {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08), 0 8px 20px rgba(0,0,0,0.05);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #e3e8f0;
+  margin: 32px 0;
+}
+
+p {
+  background: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+/* Badges de statut */
+strong {
+  color: #1a3c6e;
+}
+

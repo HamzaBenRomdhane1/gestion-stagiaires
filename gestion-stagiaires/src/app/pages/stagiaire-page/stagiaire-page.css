@@ -1,0 +1,509 @@
+/* ===== Cadre de profil entièrement violet ===== */
+.carte-profil {
+  position: relative;
+  margin-bottom: 24px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: linear-gradient(120deg, #3a35d8 0%, #5b57f0 55%, #4743e4 100%);
+  box-shadow: 0 14px 38px rgba(58, 53, 216, 0.28);
+}
+
+.forme {
+  position: absolute;
+  border-radius: 46px;
+  transform: rotate(45deg);
+}
+
+.f1 {
+  width: 260px;
+  height: 260px;
+  top: -130px;
+  left: 20%;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.f2 {
+  width: 230px;
+  height: 230px;
+  bottom: -120px;
+  left: -70px;
+  background: rgba(20, 10, 150, 0.2);
+}
+
+.f3 {
+  width: 300px;
+  height: 300px;
+  bottom: -170px;
+  right: 8%;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.contour {
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  border-radius: 46px;
+  transform: rotate(45deg);
+  border: 2px solid rgba(110, 230, 255, 0.75);
+}
+
+.c1 {
+  top: -95px;
+  left: 5%;
+}
+
+.c2 {
+  bottom: -95px;
+  right: 1%;
+}
+
+.contenu-carte {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 170px 1fr;
+  align-items: center;
+  gap: 24px;
+  padding: 44px 40px;
+  color: #fff;
+}
+
+.identite {
+  text-align: right;
+}
+
+.nom-ligne {
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.05;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  word-break: break-word;
+}
+
+.metier {
+  margin-top: 8px;
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #cfd0ff;
+}
+
+.contact {
+  font-size: 13.5px;
+  letter-spacing: 0.4px;
+  line-height: 2;
+  color: #f0f0ff;
+  word-break: break-all;
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+  background: white;
+  border: 6px solid rgba(255, 255, 255, 0.92);
+  box-shadow: 0 12px 30px rgba(15, 8, 120, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* ===== Formulaires : on neutralise le style global ===== */
+.page-form {
+  display: block;
+  margin: 0;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+/* ===== Cartes de section ===== */
+.bloc {
+  background: white;
+  border-radius: 20px;
+  padding: 28px 30px 30px;
+  margin-bottom: 22px;
+  border: 1px solid #eceeff;
+  box-shadow: 0 1px 3px rgba(40, 35, 160, 0.05), 0 14px 36px rgba(58, 53, 216, 0.07);
+}
+
+.bloc-tete {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #f0f1fb;
+}
+
+.pictogramme {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  background: linear-gradient(135deg, #6a66f5, #3a35d8);
+  box-shadow: 0 8px 20px rgba(58, 53, 216, 0.3);
+}
+
+.bloc-tete h3 {
+  margin: 0 0 2px;
+  border: 0;
+  padding: 0;
+  color: #1f1b6b;
+  font-size: 18px;
+}
+
+.soustitre {
+  color: #8a8fb0;
+  font-size: 13.5px;
+}
+
+/* ===== Champs ===== */
+.grille {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.plein {
+  grid-column: 1 / -1;
+}
+
+.trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.champ label {
+  display: block;
+  width: auto;
+  margin: 0 0 7px;
+  color: #5a5f87;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.champ input,
+.champ select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid #e3e5ff;
+  border-radius: 12px;
+  background: #f8f9ff;
+  color: #2b2f55;
+  font-size: 14.5px;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+}
+
+.champ input:focus,
+.champ select:focus {
+  outline: none;
+  border-color: #5b57f0;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(91, 87, 240, 0.14);
+}
+
+.champ input:disabled {
+  background: #f1f2f8;
+  color: #a2a6c0;
+  border-color: #e8e9f3;
+  cursor: not-allowed;
+}
+
+/* ===== Boutons ===== */
+.barre-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin: 6px 0 4px;
+}
+
+.bloc .barre-actions {
+  margin-top: 26px;
+}
+
+.btn-principal {
+  padding: 13px 30px;
+  border: none;
+  border-radius: 28px;
+  background: linear-gradient(135deg, #6a66f5, #3a35d8);
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 700;
+  box-shadow: 0 10px 24px rgba(58, 53, 216, 0.32);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.btn-principal:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(58, 53, 216, 0.42);
+}
+
+.btn-principal:disabled {
+  background: #c9cbe0;
+  box-shadow: none;
+  transform: none;
+  cursor: not-allowed;
+}
+
+/* ===== Bandeau de statut ===== */
+.statut {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  border-radius: 16px;
+  margin-bottom: 26px;
+}
+
+.statut-ico {
+  font-size: 30px;
+}
+
+.statut strong {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 15.5px;
+}
+
+.statut span {
+  font-size: 13.5px;
+}
+
+.statut.attente {
+  background: #fff8e1;
+  border: 1px solid #f6e3a1;
+}
+
+.statut.attente strong,
+.statut.attente span {
+  color: #92720a;
+}
+
+.statut.ok {
+  background: #eafaf1;
+  border: 1px solid #bfe9d0;
+}
+
+.statut.ok strong,
+.statut.ok span {
+  color: #1e8449;
+}
+
+.statut.ko {
+  background: #fdecea;
+  border: 1px solid #f5c2bd;
+}
+
+.statut.ko strong,
+.statut.ko span {
+  color: #c0392b;
+}
+
+/* ===== Frise des étapes ===== */
+.etapes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 30px;
+}
+
+.etape {
+  position: relative;
+  text-align: center;
+}
+
+.etape::before {
+  content: '';
+  position: absolute;
+  top: 17px;
+  right: 50%;
+  width: 100%;
+  height: 3px;
+  background: #e3e5ff;
+}
+
+.etape:first-child::before {
+  display: none;
+}
+
+.etape.fait::before {
+  background: #5b57f0;
+}
+
+.rond {
+  position: relative;
+  z-index: 1;
+  width: 36px;
+  height: 36px;
+  margin: 0 auto 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eef0ff;
+  color: #8a8fb0;
+  font-weight: 700;
+}
+
+.etape.fait .rond {
+  background: linear-gradient(135deg, #6a66f5, #3a35d8);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(58, 53, 216, 0.35);
+}
+
+.etape span {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #8a8fb0;
+}
+
+.etape.fait span {
+  color: #3a35d8;
+}
+
+/* ===== Zones de dépôt de fichiers ===== */
+.depot {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.zone-depot {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: auto;
+  margin: 0;
+  padding: 16px 18px;
+  border: 2px dashed #c9cbf7;
+  border-radius: 14px;
+  background: #f8f9ff;
+  cursor: pointer;
+  text-transform: none;
+  letter-spacing: 0;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.zone-depot:not(.desactive):hover {
+  border-color: #5b57f0;
+  background: #f1f1ff;
+}
+
+.zone-depot.rempli {
+  border-style: solid;
+  border-color: #9fdcbc;
+  background: #f0fbf5;
+}
+
+.zone-depot.desactive {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.cache {
+  display: none;
+}
+
+.zone-ico {
+  font-size: 26px;
+}
+
+.zone-texte strong {
+  display: block;
+  color: #2b2f55;
+  font-size: 14.5px;
+}
+
+.zone-texte span {
+  color: #8a8fb0;
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.ouvrir {
+  align-self: flex-start;
+  color: #3a35d8;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ouvrir:hover {
+  text-decoration: underline;
+}
+
+/* ===== Message flottant ===== */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  z-index: 200;
+  transform: translateX(-50%);
+  padding: 14px 26px;
+  border-radius: 30px;
+  background: #1e8449;
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 600;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.25);
+  animation: apparition 0.3s ease;
+}
+
+.toast.erreur {
+  background: #c0392b;
+}
+
+@keyframes apparition {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 16px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* ===== Petits écrans ===== */
+@media (max-width: 760px) {
+  .contenu-carte {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 34px 24px;
+    text-align: center;
+  }
+
+  .avatar {
+    order: -1;
+  }
+
+  .identite {
+    text-align: center;
+  }
+
+  .grille,
+  .trio {
+    grid-template-columns: 1fr;
+  }
+
+  .bloc {
+    padding: 22px 18px;
+  }
+}

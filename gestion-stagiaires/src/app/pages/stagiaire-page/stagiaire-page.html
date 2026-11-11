@@ -1,0 +1,233 @@
+@if (profil) {
+
+  <!-- ===== Cadre violet ===== -->
+  <div class="carte-profil">
+    <div class="forme f1"></div>
+    <div class="forme f2"></div>
+    <div class="forme f3"></div>
+    <div class="contour c1"></div>
+    <div class="contour c2"></div>
+
+    <div class="contenu-carte">
+      <div class="identite">
+        <div class="nom-ligne">{{ profil.nom }}</div>
+        <div class="nom-ligne">{{ profil.prenom }}</div>
+        <div class="metier">{{ profil.filiere ? profil.filiere : 'Stagiaire' }}</div>
+      </div>
+
+ 
+
+      <div class="avatar">
+      <img src="pp.png" alt="Photo de profil">
+      </div>
+
+      <div class="contact">
+        @if (profil.telephone) {
+          <div>📞 {{ profil.telephone }}</div>
+        }
+        <div>✉️ {{ profil.email }}</div>
+        @if (profil.adresse) {
+          <div>📍 {{ profil.adresse }}</div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Informations personnelles et parcours ===== -->
+  <form class="page-form" (ngSubmit)="enregistrer()">
+
+    <section class="bloc">
+      <header class="bloc-tete">
+        <div class="pictogramme">👤</div>
+        <div>
+          <h3>Informations personnelles</h3>
+          <div class="soustitre">Vos coordonnées, utilisées pour votre dossier de stage.</div>
+        </div>
+      </header>
+
+      <div class="grille">
+        <div class="champ">
+          <label>Nom</label>
+          <input type="text" [(ngModel)]="profil.nom" name="nom">
+        </div>
+        <div class="champ">
+          <label>Prénom</label>
+          <input type="text" [(ngModel)]="profil.prenom" name="prenom">
+        </div>
+        <div class="champ">
+          <label>Email</label>
+          <input type="email" [(ngModel)]="profil.email" name="email">
+        </div>
+        <div class="champ">
+          <label>Téléphone</label>
+          <input type="text" [(ngModel)]="profil.telephone" name="telephone">
+        </div>
+        <div class="champ">
+          <label>Date de naissance</label>
+          <input type="date" [(ngModel)]="profil.date_naissance" name="date_naissance">
+        </div>
+        <div class="champ plein">
+          <label>Adresse</label>
+          <input type="text" [(ngModel)]="profil.adresse" name="adresse" placeholder="Votre adresse">
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <header class="bloc-tete">
+        <div class="pictogramme">🎓</div>
+        <div>
+          <h3>Parcours académique</h3>
+          <div class="soustitre">Votre établissement et votre niveau d'étude.</div>
+        </div>
+      </header>
+
+      <div class="grille">
+        <div class="champ">
+          <label>Institut / Université</label>
+          <input type="text" [(ngModel)]="profil.etablissement" name="etablissement" placeholder="Nom de l'établissement">
+        </div>
+        <div class="champ">
+          <label>Filière</label>
+          <input type="text" [(ngModel)]="profil.filiere" name="filiere" placeholder="Votre filière">
+        </div>
+        <div class="champ">
+          <label>Niveau d'étude</label>
+          <select [(ngModel)]="profil.niveau_etude" name="niveau_etude">
+            <option value="">Sélectionnez un niveau</option>
+            <option value="Licence">Licence</option>
+            <option value="Bac+3">Bac+3</option>
+            <option value="Bac+4">Bac+4</option>
+            <option value="Bac+5">Bac+5</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <div class="barre-actions">
+      <button type="submit" class="btn-principal">Enregistrer les modifications</button>
+    </div>
+  </form>
+
+  <!-- ===== Dossier de stage ===== -->
+  <section class="bloc">
+    <header class="bloc-tete">
+      <div class="pictogramme">📁</div>
+      <div>
+        <h3>Dossier de stage</h3>
+        <div class="soustitre">Vos documents et les dates de votre stage.</div>
+      </div>
+    </header>
+
+    @if (profil.statut_dossier === 'ACCEPTE') {
+      <div class="statut ok">
+        <div class="statut-ico">✅</div>
+        <div>
+          <strong>Votre demande a été acceptée</strong>
+          <span>Vous pouvez maintenant remplir et soumettre votre dossier.</span>
+        </div>
+      </div>
+    } @else if (profil.statut_dossier === 'REFUSE') {
+      <div class="statut ko">
+        <div class="statut-ico">❌</div>
+        <div>
+          <strong>Votre demande a été refusée</strong>
+          <span>Contactez le service RH pour plus d'informations.</span>
+        </div>
+      </div>
+    } @else {
+      <div class="statut attente">
+        <div class="statut-ico">⏳</div>
+        <div>
+          <strong>Demande en attente de validation</strong>
+          <span>Le service RH étudie votre demande. Le dossier s'ouvrira dès qu'elle sera acceptée.</span>
+        </div>
+      </div>
+    }
+
+    <!-- Frise des étapes -->
+    <div class="etapes">
+      <div class="etape" [class.fait]="profil.etablissement && profil.filiere && profil.niveau_etude">
+        <div class="rond">{{ (profil.etablissement && profil.filiere && profil.niveau_etude) ? '✓' : '1' }}</div>
+        <span>Profil complété</span>
+      </div>
+      <div class="etape" [class.fait]="profil.statut_dossier === 'ACCEPTE'">
+        <div class="rond">{{ profil.statut_dossier === 'ACCEPTE' ? '✓' : '2' }}</div>
+        <span>Validation RH</span>
+      </div>
+      <div class="etape" [class.fait]="profil.cv && profil.lettre_depot && profil.cin">
+        <div class="rond">{{ (profil.cv && profil.lettre_depot && profil.cin) ? '✓' : '3' }}</div>
+        <span>Dossier déposé</span>
+      </div>
+    </div>
+
+    <form class="page-form" (ngSubmit)="enregistrerDossier()">
+      <div class="grille">
+
+        <div class="depot">
+          <label class="zone-depot" [class.desactive]="profil.statut_dossier !== 'ACCEPTE'" [class.rempli]="profil.cv">
+            <input type="file" class="cache" accept=".pdf" (change)="onCvSelectionne($event)" [disabled]="profil.statut_dossier !== 'ACCEPTE'">
+            <div class="zone-ico">{{ profil.cv ? '✅' : '📄' }}</div>
+            <div class="zone-texte">
+              <strong>CV (PDF)</strong>
+              <span>{{ profil.cv ? 'Fichier enregistré · cliquez pour le remplacer' : 'Cliquez pour choisir un fichier PDF' }}</span>
+            </div>
+          </label>
+          @if (profil.cv) {
+            <a class="ouvrir" [href]="'http://localhost:3000' + profil.cv" target="_blank">Ouvrir le fichier ↗</a>
+          }
+        </div>
+
+        <div class="depot">
+          <label class="zone-depot" [class.desactive]="profil.statut_dossier !== 'ACCEPTE'" [class.rempli]="profil.lettre_depot">
+            <input type="file" class="cache" accept=".pdf" (change)="onLettreSelectionnee($event)" [disabled]="profil.statut_dossier !== 'ACCEPTE'">
+            <div class="zone-ico">{{ profil.lettre_depot ? '✅' : '📄' }}</div>
+            <div class="zone-texte">
+              <strong>Lettre d'affectation (PDF)</strong>
+              <span>{{ profil.lettre_depot ? 'Fichier enregistré · cliquez pour le remplacer' : 'Cliquez pour choisir un fichier PDF' }}</span>
+            </div>
+          </label>
+          @if (profil.lettre_depot) {
+            <a class="ouvrir" [href]="'http://localhost:3000' + profil.lettre_depot" target="_blank">Ouvrir le fichier ↗</a>
+          }
+        </div>
+
+        <div class="champ">
+          <label>CIN</label>
+          <input type="text" [(ngModel)]="profil.cin" name="cin" [disabled]="profil.statut_dossier !== 'ACCEPTE'">
+        </div>
+        <div class="champ">
+          <label>Département</label>
+          <input type="text" [(ngModel)]="profil.departement" name="departement" [disabled]="profil.statut_dossier !== 'ACCEPTE'">
+        </div>
+
+        <div class="trio plein">
+          <div class="champ">
+            <label>Durée du stage</label>
+            <input type="text" [(ngModel)]="profil.duree_stage" name="duree_stage" placeholder="Ex : 2 mois" [disabled]="profil.statut_dossier !== 'ACCEPTE'">
+          </div>
+          <div class="champ">
+            <label>Date début</label>
+            <input type="date" [(ngModel)]="profil.date_debut_stage" name="date_debut_stage" [disabled]="profil.statut_dossier !== 'ACCEPTE'">
+          </div>
+          <div class="champ">
+            <label>Date fin</label>
+            <input type="date" [(ngModel)]="profil.date_fin_stage" name="date_fin_stage" [disabled]="profil.statut_dossier !== 'ACCEPTE'">
+          </div>
+        </div>
+
+      </div>
+
+      <div class="barre-actions">
+        <button type="submit" class="btn-principal" [disabled]="profil.statut_dossier !== 'ACCEPTE'">Soumettre le dossier</button>
+      </div>
+    </form>
+  </section>
+
+  @if (message) {
+    <div class="toast" [class.erreur]="erreur">{{ erreur ? '⚠️' : '✅' }} {{ message }}</div>
+  }
+
+} @else {
+  <p>Chargement du profil...</p>
+}

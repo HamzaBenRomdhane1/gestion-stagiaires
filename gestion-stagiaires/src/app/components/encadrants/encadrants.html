@@ -1,0 +1,57 @@
+<h2>Ajouter un encadrant</h2>
+
+<form (ngSubmit)="ajouterEncadrant()">
+  <input type="text" [(ngModel)]="nouvelEncadrant.nom" name="nom" placeholder="Nom">
+  <input type="text" [(ngModel)]="nouvelEncadrant.prenom" name="prenom" placeholder="Prénom">
+  <input type="email" [(ngModel)]="nouvelEncadrant.email" name="email" placeholder="Email (identifiant)">
+  <input type="text" [(ngModel)]="nouvelEncadrant.telephone" name="telephone" placeholder="Téléphone">
+  <input type="text" [(ngModel)]="nouvelEncadrant.departement" name="departement" placeholder="Département">
+  <input type="text" [(ngModel)]="nouvelEncadrant.specialite" name="specialite" placeholder="Spécialité">
+  <input type="password" [(ngModel)]="nouvelEncadrant.password" name="password" placeholder="Mot de passe (6 car. min.)">
+  <button type="submit">Ajouter</button>
+</form>
+
+@if (erreurAjout) {
+  <div class="message-erreur">{{ erreurAjout }}</div>
+}
+@if (messageAjout) {
+  <div class="message-ok">{{ messageAjout }}</div>
+}
+
+<hr>
+
+<h2>Liste des encadrants</h2>
+
+@if (encadrants.length === 0) {
+  <p>Aucun encadrant trouvé.</p>
+} @else {
+  <ul>
+    @for (e of encadrants; track e.id) {
+      <li>
+        @if (encadrantEnEdition && encadrantEnEdition.id === e.id) {
+          <input type="text" [(ngModel)]="encadrantEnEdition.nom" name="editNom">
+          <input type="text" [(ngModel)]="encadrantEnEdition.prenom" name="editPrenom">
+          <input type="email" [(ngModel)]="encadrantEnEdition.email" name="editEmail">
+          <input type="text" [(ngModel)]="encadrantEnEdition.telephone" name="editTelephone" placeholder="Téléphone">
+          <input type="text" [(ngModel)]="encadrantEnEdition.departement" name="editDepartement" placeholder="Département">
+          <input type="text" [(ngModel)]="encadrantEnEdition.specialite" name="editSpecialite" placeholder="Spécialité">
+          <button (click)="sauvegarderEdition()">Enregistrer</button>
+          <button (click)="annulerEdition()">Annuler</button>
+        } @else {
+          <div class="identite">
+            <div class="nom-complet">{{ e.nom }} {{ e.prenom }}</div>
+            <div class="details">
+              {{ e.email }}
+              @if (e.telephone) { · {{ e.telephone }} }
+              @if (e.departement) { · {{ e.departement }} }
+              @if (e.specialite) { · {{ e.specialite }} }
+            </div>
+            <div class="identifiant">Identifiant de connexion : <strong>{{ e.identifiant }}</strong></div>
+          </div>
+          <button (click)="commencerEdition(e)">Modifier</button>
+          <button (click)="supprimerEncadrant(e.id)">Supprimer</button>
+        }
+      </li>
+    }
+  </ul>
+}
